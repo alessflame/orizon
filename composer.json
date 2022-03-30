@@ -1,0 +1,9 @@
+{
+    "name": "effef/orizon",
+    "autoload": {
+        "psr-4": {
+            "App\\": "App/"
+        }
+    },
+    "require": {}
+}
