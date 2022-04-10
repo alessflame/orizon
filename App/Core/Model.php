@@ -14,7 +14,7 @@ class Model
      }
 
 
-//READ
+     //READ
      public function getAllElements($table, $fetchConst = \PDO::FETCH_ASSOC)
      {
 
@@ -25,80 +25,74 @@ class Model
      }
 
 
-     public function getElementsFromProperty($table, $prop, $value,  $fetchConst = \PDO::FETCH_ASSOC)
+     public function getElementFromProperty($table, $prop, $value,  $fetchConst = \PDO::FETCH_ASSOC)
      {
           $query = "SELECT * from $table WHERE $prop = :$prop;";
-         
-           $st = $this->pdo->prepare($query);
-           $st->bindValue(":$prop", $value);
-           $st->execute();
 
-           return $st->fetchAll($fetchConst);
+          $st = $this->pdo->prepare($query);
+          $st->bindValue(":$prop", $value);
+          $st->execute();
+
+          return $st->fetch($fetchConst);
      }
 
-     public function selectDistinct($table, $prop, $fetchConst = \PDO::FETCH_ASSOC){
+     public function selectDistinct($table, $prop, $fetchConst = \PDO::FETCH_ASSOC)
+     {
 
-          $query= "SELECT DISTINCT $prop FROM $table ";
-          
+          $query = "SELECT DISTINCT $prop FROM $table ";
+
           $st = $this->pdo->prepare($query);
           $st->execute();
 
           return $st->fetchAll($fetchConst);
-
      }
 
-     
+
      //Create
-     public function insert($table, $values){
-          $keys= array_keys($values);
-          $fields= implode(",",$keys);  
-     
-          $placeholder = implode(",", array_map(fn($key)=> ":$key", $keys ));
-     
-          $query= "INSERT into $table ($fields) VALUES ($placeholder);";
-     
-          $stmt= $this->pdo->prepare($query);
-          foreach($values as $field => $fieldValue){
+     public function insert($table, $values)
+     {
+          $keys = array_keys($values);
+          $fields = implode(",", $keys);
+
+          $placeholder = implode(",", array_map(fn ($key) => ":$key", $keys));
+
+          $query = "INSERT into $table ($fields) VALUES ($placeholder);";
+
+          $stmt = $this->pdo->prepare($query);
+          foreach ($values as $field => $fieldValue) {
                $stmt->bindValue(":$field", $fieldValue);
-     
           }
-             $stmt->execute();
+          $stmt->execute();
 
-           return $this->pdo->lastInsertId();
-
+          return $this->pdo->lastInsertId();
      }
 
 
      //Update
-     public function update($table, $prop, $value, $where_prop, $where_value){
+     public function update($table, $prop, $value, $where_prop, $where_value)
+     {
 
-          $query= "UPDATE $table SET $prop=:$prop WHERE $where_prop= :$where_prop;";
+          $query = "UPDATE $table SET $prop=:$prop WHERE $where_prop= :$where_prop;";
 
-          $st= $this->pdo->prepare($query);
+          $st = $this->pdo->prepare($query);
 
           $st->bindValue(":$prop", $value);
           $st->bindValue(":$where_prop", $where_value);
 
           return $st->execute();
-      
      }
 
 
      //delete
 
-     public function delete($table, $prop , $value){
+     public function delete($table, $prop, $value)
+     {
 
-     $query ="DELETE FROM $table WHERE $prop= :$prop;";
+          $query = "DELETE FROM $table WHERE $prop= :$prop;";
 
-     $st= $this->pdo->prepare($query);
-     $st->bindValue(":$prop", $value);
+          $st = $this->pdo->prepare($query);
+          $st->bindValue(":$prop", $value);
 
-     return $st->execute();
-
+          return $st->execute();
      }
-
-
-
-
-
 }

@@ -1,32 +1,34 @@
 <?php
 
-use App\Controller\PaesiController;
-use App\Controller\ViaggiController;
+use App\Controller\TravelController;
+use App\Controller\CountryController;
 
 
 return [
 
-     "get"=>[
-          
-          "/api/viaggi" => [ViaggiController::class, "index"],
-          "/api/paesi" => [PaesiController::class, "index"]
-          
-     ] ,
-     
-     "post"=>
-          [
-          "/api/viaggi" => [ViaggiController::class, "createTravel"],
-          "/api/paesi" => [PaesiController::class, "insertCountry"],
-          "/api/viaggi/settings" => [ViaggiController::class, "updateTravel"],
-          "/api/paesi/settings" => [PaesiController::class, "updateCountry"],
-          "/api/viaggi/delete" => [ViaggiController::class, "deleteTravel"],
-          "/api/paesi/delete" => [PaesiController::class, "deleteCountry"]
-          ]
+     "get" => 
+     [
+          //richieste get-> è possibile filtrare -> es.  /api/countries/?id=3&name=france
+          "/api/travels" => [TravelController::class, "index"],
+          "/api/countries" => [CountryController::class, "index"]
+     ],
 
-]
+     "post" =>
+     [
+          "/api/travels" => [TravelController::class, "insertTravel"],
+          "/api/countries" => [CountryController::class, "insertCountry"]
+     ],
 
+     "delete" =>
+     [
+          "/api/travels/:id" => [TravelController::class, "deleteTravel"],
+          "/api/countries/:id" => [CountryController::class, "deleteCountry"]
+     ],
 
+     "patch" =>
+     [
+          "/api/travels/:id" => [TravelController::class, "updateTravel"],
+          "/api/countries/:id" => [CountryController::class, "updateCountry"]
+     ]
 
-
-
-?>
+];

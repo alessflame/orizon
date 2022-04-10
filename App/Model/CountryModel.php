@@ -3,8 +3,8 @@ namespace App\Model;
 
 use App\Core\Model;
 
-class PaesiModel extends Model{
-
+class CountryModel extends Model{
+     public string $name;
 
      public function __construct(public \PDO $pdo)
      {

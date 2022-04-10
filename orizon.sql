@@ -1,3 +1,11 @@
+-- phpMyAdmin SQL Dump
+-- version 5.1.3
+-- https://www.phpmyadmin.net/
+--
+-- Host: 127.0.0.1
+-- Creato il: Apr 10, 2022 alle 12:01
+-- Versione del server: 10.4.24-MariaDB
+-- Versione PHP: 8.1.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -6,97 +14,141 @@ SET time_zone = "+00:00";
 --
 -- Database: `orizon`
 --
-CREATE DATABASE IF NOT EXISTS `orizon` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
-USE `orizon`;
 
 -- --------------------------------------------------------
 
 --
--- Struttura della tabella `paesi`
+-- Struttura della tabella `countries`
 --
 
-CREATE TABLE `paesi` (
-  `id_paese` int(11) NOT NULL,
-  `nome` varchar(100) NOT NULL,
-  `id_viaggio` int(11) NOT NULL
+CREATE TABLE `countries` (
+  `id_country` int(11) NOT NULL,
+  `name` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dump dei dati per la tabella `paesi`
+-- Dump dei dati per la tabella `countries`
 --
 
-INSERT INTO `paesi` (`id_paese`, `nome`, `id_viaggio`) VALUES
-(1, 'Italia', 1),
-(2, 'Francia', 1),
-(3, 'Svizzera', 1),
-(4, 'Russia', 2),
-(5, 'Cina', 2),
-(6, 'Giappone', 2),
-(7, 'usa', 3),
-(8, 'francia', 3),
-(9, 'Giappone', 3),
-(10, 'Australia', 3),
-(11, 'Italia', 3),
-(12, 'Usa', 4),
-(13, 'Canada', 4),
-(14, 'Brasile', 4),
-(15, 'Argentina', 4),
-(16, 'India', 2),
-(17, 'Siberia', 2),
-(20, 'Scozia', 3);
+INSERT INTO `countries` (`id_country`, `name`) VALUES
+(9, 'Belgium'),
+(3, 'Brazil'),
+(2, 'Canada'),
+(12, 'China'),
+(8, 'Denmark'),
+(10, 'England'),
+(5, 'France'),
+(6, 'Germany'),
+(13, 'India'),
+(4, 'Italy'),
+(11, 'Japan'),
+(7, 'Spain'),
+(1, 'Usa');
 
 -- --------------------------------------------------------
 
 --
--- Struttura della tabella `viaggi`
+-- Struttura della tabella `travels`
 --
 
-CREATE TABLE `viaggi` (
-  `id_viaggio` int(11) NOT NULL,
-  `nome` varchar(100) NOT NULL,
-  `n_posti` int(11) NOT NULL,
-  `n_posti_occupati` int(11) NOT NULL
+CREATE TABLE `travels` (
+  `id_travel` int(11) NOT NULL,
+  `name` varchar(50) NOT NULL,
+  `places` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dump dei dati per la tabella `viaggi`
+-- Dump dei dati per la tabella `travels`
 --
 
-INSERT INTO `viaggi` (`id_viaggio`, `nome`, `n_posti`, `n_posti_occupati`) VALUES
-(1, 'culturaEuropea', 140, 120),
-(2, 'culturaOrientale', 140, 120),
-(3, 'AroundWorld', 140, 120),
-(4, 'americanTravel', 200, 140);
+INSERT INTO `travels` (`id_travel`, `name`, `places`) VALUES
+(1, 'AmericanTravel', 400),
+(2, 'Europe', 600),
+(3, 'NorthEurope', 600),
+(4, 'Explore World', 220),
+(5, 'Asian Travel', 220);
+
+-- --------------------------------------------------------
+
+--
+-- Struttura della tabella `travels_countries`
+--
+
+CREATE TABLE `travels_countries` (
+  `id_row` int(11) NOT NULL,
+  `id_travel` int(11) NOT NULL,
+  `id_country` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dump dei dati per la tabella `travels_countries`
+--
+
+INSERT INTO `travels_countries` (`id_row`, `id_travel`, `id_country`) VALUES
+(1, 1, 1),
+(2, 1, 2),
+(3, 1, 3),
+(4, 2, 4),
+(5, 2, 5),
+(6, 2, 6),
+(7, 2, 7),
+(8, 2, 6),
+(9, 3, 8),
+(10, 3, 6),
+(11, 3, 9),
+(12, 3, 10),
+(13, 4, 1),
+(14, 4, 4),
+(15, 4, 11),
+(16, 4, 12),
+(17, 4, 5),
+(18, 4, 7),
+(19, 5, 11),
+(20, 5, 12),
+(21, 5, 13);
 
 --
 -- Indici per le tabelle scaricate
 --
 
 --
--- Indici per le tabelle `paesi`
+-- Indici per le tabelle `countries`
 --
-ALTER TABLE `paesi`
-  ADD PRIMARY KEY (`id_paese`);
+ALTER TABLE `countries`
+  ADD PRIMARY KEY (`id_country`),
+  ADD UNIQUE KEY `name` (`name`);
 
 --
--- Indici per le tabelle `viaggi`
+-- Indici per le tabelle `travels`
 --
-ALTER TABLE `viaggi`
-  ADD PRIMARY KEY (`id_viaggio`);
+ALTER TABLE `travels`
+  ADD PRIMARY KEY (`id_travel`);
+
+--
+-- Indici per le tabelle `travels_countries`
+--
+ALTER TABLE `travels_countries`
+  ADD PRIMARY KEY (`id_row`);
 
 --
 -- AUTO_INCREMENT per le tabelle scaricate
 --
 
 --
--- AUTO_INCREMENT per la tabella `paesi`
+-- AUTO_INCREMENT per la tabella `countries`
 --
-ALTER TABLE `paesi`
-  MODIFY `id_paese` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+ALTER TABLE `countries`
+  MODIFY `id_country` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
--- AUTO_INCREMENT per la tabella `viaggi`
+-- AUTO_INCREMENT per la tabella `travels`
 --
-ALTER TABLE `viaggi`
-  MODIFY `id_viaggio` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+ALTER TABLE `travels`
+  MODIFY `id_travel` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT per la tabella `travels_countries`
+--
+ALTER TABLE `travels_countries`
+  MODIFY `id_row` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 COMMIT;

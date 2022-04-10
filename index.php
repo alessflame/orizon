@@ -9,7 +9,7 @@ use App\Core\Config;
 
  Config::setEnv(__DIR__."/.env");
 
- $routes= Config::getFile(__DIR__."/config/routes.php"); //array che contiene i routes
+ $routes= Config::getFile(__DIR__."/config/routes.php"); //array che contiene i routes -> utilizzo la funzione statica getFile
 
 (new Bootstrap($routes))->run();
 

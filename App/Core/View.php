@@ -17,7 +17,11 @@ class View{
      }
 
 
-
+     public function getContentApi($content){
+         
+          return json_encode($content);
+  
+     }
 
 
 }

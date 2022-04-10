@@ -5,6 +5,7 @@ class Config{
 
 
      public static function setEnv($fileEnv){
+          //settaggio delle variabili d'ambiente dal file .env
           $Envs= file($fileEnv);
 
           foreach($Envs as $Env){
@@ -16,7 +17,7 @@ class Config{
      }
 
      public static function getFile($file){
-
+          //funzione statica per ritornare il contenuto dei file
           if(!is_file($file)){
                return false;
           }
@@ -24,6 +25,8 @@ class Config{
           return include $file;
 
      }
+
+
 
 
 
